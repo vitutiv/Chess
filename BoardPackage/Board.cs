@@ -55,6 +55,11 @@ namespace Chess.BoardPackage
             _tiles[p.X, p.Y] = null;
             return pieceSelected;
         }
-
+        public Piece MovePiece(Position oldPosition, Position newPosition)
+        {
+            _tiles[newPosition.X, newPosition.Y] = GetPiece(oldPosition);
+            RemovePiece(oldPosition);
+            return GetPiece(newPosition);
+        }
     }
 }

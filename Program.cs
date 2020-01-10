@@ -7,7 +7,8 @@ namespace Chess
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.Title = "Chesspacito"; 
             Game game = new Game();
             while (!game.Over)
             {

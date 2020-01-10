@@ -46,7 +46,7 @@ namespace Chess.PiecePackage
                     {
                         if (Board.GetPiece(new Position(x, y)) != null)
                         {
-                            if (Color == Board.GetPiece(new Position(x, y)).Color){
+                            if (Color != Board.GetPiece(new Position(x, y)).Color){
                                 availableMovements[x, y] = true;
                             }
                         }

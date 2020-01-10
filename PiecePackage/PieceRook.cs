@@ -55,9 +55,14 @@ namespace Chess.PiecePackage
                         if (isWayFree[wayX, wayY])
                         {
                             availableMoves[x, y] = true;
-                            if (Board.GetPiece(new Position(x, y)) != null)
+                            Piece pieceEvaluated = Board.GetPiece(new Position(x, y));
+                            if (pieceEvaluated != null)
                             {
                                 isWayFree[wayX, wayY] = false;
+                                if (pieceEvaluated.Color == Color)
+                                {
+                                    availableMoves[x, y] = false;
+                                }
                             }
                         }
                     }
