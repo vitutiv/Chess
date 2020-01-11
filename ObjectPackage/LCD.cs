@@ -23,7 +23,7 @@ namespace Chess.ObjectPackage
                     Console.BackgroundColor = ConsoleColor.White;
                     if ((x + y) % 2 == 0)
                     {
-                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
                     }
                     if (validMovements[x, y])
                     {
@@ -31,14 +31,15 @@ namespace Chess.ObjectPackage
                     }
                     if (piece != null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.ForegroundColor = ConsoleColor.Gray;
                         if (validMovements[x, y])
                         {
+                            Console.BackgroundColor = ConsoleColor.DarkYellow;
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
                         if (piece.Color == ConsoleColor.Black)
                         {
-                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.ForegroundColor = ConsoleColor.Black;
                         }
                         Console.Write(piece.ToString() + " ");
                     }
@@ -47,8 +48,11 @@ namespace Chess.ObjectPackage
                         Console.Write("  ");
                     }
                 }
-                Console.WriteLine("");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" " + (y+1));
             }
+            Console.WriteLine("a b c d e f g h");
         }
     }
 }

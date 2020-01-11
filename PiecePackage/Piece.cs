@@ -52,6 +52,7 @@ namespace Chess.PiecePackage
             if(AvailableMoves()[position.X, position.Y])
             {
                 Position = position;
+                ++MoveCount;
             }
             return Position;
         }

@@ -7,23 +7,23 @@ namespace Chess.ObjectPackage
 {
     class Game
     {
-        public int Turn { get; protected set; } = 0;
-        public ConsoleColor[] teams = { ConsoleColor.Black, ConsoleColor.White };
-        public bool Over { get; protected set; } = false;
-        public ChessBoard Board { get; protected set; }
-        public Game()
+        public int Turn { get; protected set; } = 0; //Turn's number (EVEN = black, ODD = WHITE).
+        public ConsoleColor[] teams = { ConsoleColor.Black, ConsoleColor.White }; // Team colors that are used in the whole game (Black, White).
+        public bool Over { get; protected set; } = false; // Game over?
+        public ChessBoard Board { get; protected set; } // Game board
+        public Game() //Creates a new game
         {
             Board = new ChessBoard();
         }
-        public bool nextTurn()
+        public bool nextTurn() //Next turn
         {
             Console.Clear();
             LCD.printBoard(Board);
-            Console.WriteLine("Turn: " + teams[Turn % 2].ToString());
-            Console.Write("Choose a piece (LineColumn): ");
+            Console.WriteLine("Turn of: " + teams[Turn % 2].ToString());
+            Console.Write("Choose a piece (a-h)(1-8): ");
             String position = Console.ReadLine();
-            int x = int.Parse(position[1].ToString()) - 1;
-            int y = int.Parse(position[0].ToString()) - 1;
+            int x = char.ToUpper(position[0]) - 65;
+            int y = int.Parse(position[1].ToString()) - 1;
             Position newPosition = new Position(x, y);
             String errorMessage;
             if (x < Board.Width && y < Board.Height)
@@ -37,10 +37,10 @@ namespace Chess.ObjectPackage
                         if (selectedPiece.Color == teams[Turn % 2])
                         {
                             LCD.printBoard(Board, selectedPiece.AvailableMoves());
-                            Console.Write("Move" + selectedPiece.Symbol + " to: ");
+                            Console.Write("Move " + selectedPiece.Symbol + " in " + position + " to: ");
                             String target = Console.ReadLine();
-                            x = int.Parse(target[1].ToString()) - 1;
-                            y = int.Parse(target[0].ToString()) - 1;
+                            x = char.ToUpper(target[0]) - 65;
+                            y = int.Parse(target[1].ToString()) - 1;
                             if (x < Board.Width && y < Board.Height)
                             {
                                 Position oldPosition = selectedPiece.Position;
@@ -48,16 +48,17 @@ namespace Chess.ObjectPackage
                                 if (selectedPiece.Move(newPosition) == newPosition)
                                 {
                                     Board.MovePiece(oldPosition, newPosition);
+                                    ++Turn;
                                     return true;
                                 }
                                 else
                                 {
-                                    errorMessage = "Unexpected error";
+                                    errorMessage = "This is not a valid movement for the selected piece.";
                                 }
                             }
                             else
                             {
-                                errorMessage = "Please write two numbers between 1 and 8. Ex: 88";
+                                errorMessage = "Please write a letter (a-h) and a number (1-8). Ex: a8";
                             }
                         }
                         else
@@ -77,7 +78,7 @@ namespace Chess.ObjectPackage
             }
             else
             {
-                errorMessage = "Please write two numbers between 1 and 8. Ex: 81";
+                errorMessage = "Please write a letter (a-h) and a number (1-8). Ex: h1";
             }
             Console.WriteLine(errorMessage);
             Console.ReadKey();
